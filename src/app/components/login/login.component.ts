@@ -11,8 +11,12 @@ import { Router } from '@angular/router';
 export class LoginComponent  {
 
   forma:FormGroup;
+  errorLogin:boolean;
+
   constructor(private loginService: LoginService,private router: Router) {
 
+    console.log("constructor");
+    
     this.forma = new FormGroup({
 
       'email':   new FormControl('',[]),
@@ -20,35 +24,32 @@ export class LoginComponent  {
       'password': new FormControl('',[])
 })
     
-  
-console.log(this.forma);
    }
 
 
   login(){
-   let aux:boolean;
+    this.errorLogin = false;
     
     this.loginService.login().subscribe((users:any[])=>{
       
-      for (let i = 0; i < users.length; i++) {
+      users = users.filter( users => users.email === this.forma.value.email &&
+                             users.password === this.forma.value.password)
 
-        if(users[i].email === this.forma.value.email && users[i].password === this.forma.value.password){
-          
-          this.router.navigate(['/home']);
-          aux=true;
-          break;
-        }
-        
-      }
-
-      if(!aux){
-        alert("Email / Password inválido");
-      }
-     
-      console.log(this.forma.value.email,this.forma.value.password);
+      if(users.length===1){
+        this.router.navigate(['/home']);
+      }else{
+       this.errorLogin = true;
+      }                             
       
     })
      
+    let funcion = () =>{
+
+    }
   }
+
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response ${captchaResponse}:`);
+}
 
 }

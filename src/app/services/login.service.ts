@@ -11,8 +11,6 @@ export class LoginService {
 
 
   login(){
-
    return this.http.get(this.url);
-
   }
 }

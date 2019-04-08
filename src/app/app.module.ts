@@ -11,6 +11,14 @@ import { HomeComponent } from './components/home/home.component';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AboutComponent } from './components/about/about.component';
+import { Pearson } from './stores/pearson.store';
+
+import { RecaptchaModule } from 'ng-recaptcha';
+
+
+// Angular Material
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -19,17 +27,27 @@ import { AboutComponent } from './components/about/about.component';
     HomeComponent,
     FormularioComponent,
     NavbarComponent,
-    AboutComponent
+    AboutComponent,
+    
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RecaptchaModule,
+    BrowserAnimationsModule
+    
+    // RecaptchaFormsModule, // if you need forms support
+    
+    
     
   ],
-  providers: [],
+  providers: [
+    Pearson
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
